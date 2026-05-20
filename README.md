@@ -1,112 +1,234 @@
-# Django User Authentication and CMS
+# Login Registration Django App
 
-A professional internship-level Django project with email login, registration, email verification, password reset, role-based access control, an admin dashboard, and CMS post management.
+A simple Django web application for user registration, login, logout, and a protected dashboard page. The project uses Django's built-in authentication system, SQLite, Bootstrap, and the built-in Django admin panel for user management.
 
 ## Features
 
-- Custom Django user model using `AbstractUser`
-- Email and password login
-- Registration with full name, username, email, password, and role
-- Email uniqueness validation
-- Email verification link after registration
-- Forgot password and reset password flow
-- Session timeout after 30 minutes of inactivity
-- Admin and Salesperson roles
-- Admin-only dashboard and CMS CRUD
-- Bootstrap 5 responsive UI
-- Django messages, CSRF protection, ORM, and admin panel
-- Render and PythonAnywhere deployment files
+- Public home page with Login and Register buttons
+- User registration with username, email, and password
+- Secure password storage using Django authentication
+- Username and password login
+- Error and success messages using Django messages
+- Protected dashboard page for logged-in users only
+- Secure logout with redirect to login
+- Django admin panel for managing users
+- SQLite database for local development
+- Bootstrap responsive UI
+- Function-based views and simple URL routing
+
+## Tech Stack
+
+- Python
+- Django
+- SQLite
+- HTML
+- CSS
+- Bootstrap
+- Gunicorn and WhiteNoise for deployment
 
 ## Project Structure
 
 ```text
 project/
-├── authproject/
-├── users/
-├── templates/
-├── static/
-├── media/
-├── manage.py
-├── requirements.txt
-├── Procfile
-└── runtime.txt
++-- authproject/
+|   +-- settings.py
+|   +-- urls.py
+|   +-- wsgi.py
++-- users/
+|   +-- forms.py
+|   +-- urls.py
+|   +-- views.py
++-- templates/
+|   +-- base.html
+|   +-- dashboard.html
+|   +-- login.html
+|   +-- main_home.html
+|   +-- navbar.html
+|   +-- register.html
++-- static/
+|   +-- css/
+|   +-- js/
++-- manage.py
++-- requirements.txt
++-- Procfile
++-- runtime.txt
 ```
 
-## Installation
+## Local Setup
+
+Create and activate a virtual environment:
 
 ```bash
-python -m venv venv
-venv\Scripts\activate
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
+
+Run migrations:
+
+```bash
 python manage.py migrate
+```
+
+Create an admin user:
+
+```bash
 python manage.py createsuperuser
+```
+
+Start the development server:
+
+```bash
 python manage.py runserver
 ```
 
-Open `http://127.0.0.1:8000/`.
+Open:
 
-## Email Verification During Development
+```text
+http://127.0.0.1:8000/
+```
 
-The project uses Django's console email backend by default. Verification and password reset links appear in the terminal where `runserver` is running.
+## Website Flow
 
-## User Flow
+```text
+Home Page -> Register -> Login -> Dashboard -> Logout -> Login
+```
 
-Public Home Page -> Register -> Verify Email -> Login -> Dashboard -> Logout -> Login
+## Admin Panel
 
-## Roles
+Open:
 
-- Admin: can access the admin dashboard and manage CMS posts.
-- Salesperson: can access the user dashboard but is blocked from admin-only pages.
+```text
+http://127.0.0.1:8000/admin/
+```
 
-To make a user an admin, open Django Admin or the shell and set:
+Login with the superuser account created using:
 
-```python
-user.role = "admin"
-user.is_staff = True
-user.status = "active"
-user.is_active = True
-user.save()
+```bash
+python manage.py createsuperuser
+```
+
+The admin can view, add, edit, and delete users from Django's built-in Users section.
+
+## Database
+
+The app uses SQLite by default.
+
+Local database file:
+
+```text
+db.sqlite3
+```
+
+Registered users are stored in Django's built-in:
+
+```text
+auth_user
+```
+
+For GitHub, the database file should not be committed. Keep `db.sqlite3` ignored in `.gitignore`.
+
+## GitHub Push
+
+Initialize and push:
+
+```bash
+git init
+git add .
+git commit -m "Initial Django login registration app"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git push -u origin main
+```
+
+If Git shows a dubious ownership warning, run:
+
+```bash
+git config --global --add safe.directory "C:/Users/Shravani/OneDrive/Documents/New project"
 ```
 
 ## Render Deployment
 
-1. Push this project to GitHub.
-2. Create a new Render Web Service.
-3. Use these commands:
+Create a new Render Web Service and connect the GitHub repository.
 
-```bash
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py collectstatic --noinput
+Use these settings:
+
+```text
+Language: Python
+Branch: main
+Root Directory: leave empty
 ```
 
-4. Start command:
+Build Command:
+
+```bash
+pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput
+```
+
+Start Command:
 
 ```bash
 gunicorn authproject.wsgi:application
 ```
 
-5. Add environment variables:
+Environment Variables:
 
 ```text
-SECRET_KEY=your-secure-secret
+SECRET_KEY=your-long-random-secret-key
 DEBUG=False
-ALLOWED_HOSTS=your-app.onrender.com
+ALLOWED_HOSTS=.onrender.com
 ```
 
-## PythonAnywhere Deployment
+You can also set `ALLOWED_HOSTS` to your exact Render domain:
 
-1. Upload or clone the GitHub project.
-2. Create a virtual environment and install requirements.
-3. Run migrations and collect static files.
-4. Configure the WSGI file to use `authproject.wsgi`.
-5. Add your PythonAnywhere domain to `ALLOWED_HOSTS`.
+```text
+your-app-name.onrender.com
+```
+
+Do not include `https://` or a trailing slash in `ALLOWED_HOSTS`.
+
+## Common Render Issue: Bad Request 400
+
+If the deployed site shows `Bad Request (400)`, check `ALLOWED_HOSTS`.
+
+Correct examples:
+
+```text
+.onrender.com
+your-app-name.onrender.com
+```
+
+Wrong examples:
+
+```text
+https://your-app-name.onrender.com
+https://your-app-name.onrender.com/
+```
+
+After changing environment variables, redeploy from Render:
+
+```text
+Manual Deploy -> Deploy latest commit
+```
 
 ## Useful Commands
 
 ```bash
+python manage.py check
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
+python manage.py collectstatic --noinput
 ```
+
+## Notes
+
+- This project uses Django's built-in `User` model. No custom user model is required.
+- SQLite is fine for local development and demos.
+- For a production app with permanent data on Render, PostgreSQL is recommended.

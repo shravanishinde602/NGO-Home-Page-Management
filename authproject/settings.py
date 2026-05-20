@@ -102,7 +102,10 @@ EMAIL_BACKEND = os.environ.get(
     "EMAIL_BACKEND",
     "django.core.mail.backends.console.EmailBackend",
 )
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "CMS Auth <noreply@example.com>")
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "DEFAULT_FROM_EMAIL",
+    "Login System <noreply@example.com>",
+)
 
 if not DEBUG:
     CSRF_COOKIE_SECURE = True

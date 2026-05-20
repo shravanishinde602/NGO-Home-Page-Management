@@ -142,14 +142,8 @@ git init
 git add .
 git commit -m "Initial Django login registration app"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git remote add origin https://github.com/shravanishinde602/login-registration.git
 git push -u origin main
-```
-
-If Git shows a dubious ownership warning, run:
-
-```bash
-git config --global --add safe.directory "C:/Users/Shravani/OneDrive/Documents/New project"
 ```
 
 ## Render Deployment

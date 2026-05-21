@@ -14,6 +14,10 @@
             <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.news }}</strong><span>News</span></div></div>
             <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.testimonials }}</strong><span>Stories</span></div></div>
             <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.partners }}</strong><span>Partners</span></div></div>
+            <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.about_values }}</strong><span>About Values</span></div></div>
+            <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.about_programs }}</strong><span>About Programs</span></div></div>
+            <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.about_team }}</strong><span>Team</span></div></div>
+            <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.about_impact }}</strong><span>About Impact</span></div></div>
         </div>
         <div class="row g-4">
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_banner' %}">Manage Banners</a></div>
@@ -23,6 +27,18 @@
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_news' %}">Manage News</a></div>
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_testimonials' %}">Manage Testimonials</a></div>
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_partners' %}">Manage Partners</a></div>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mt-5 mb-3">
+            <div><span class="section-kicker">About Us</span><h2 class="h4 fw-bold mb-0">About Page Management</h2></div>
+            <a class="btn btn-outline-success" href="{% url 'about_page' %}">View About Page</a>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4"><a class="manage-card" href="{% url 'manage_story' %}">Manage About Story</a></div>
+            <div class="col-md-4"><a class="manage-card" href="{% url 'manage_values' %}">Manage Core Values</a></div>
+            <div class="col-md-4"><a class="manage-card" href="{% url 'manage_programs' %}">Manage About Programs</a></div>
+            <div class="col-md-4"><a class="manage-card" href="{% url 'manage_team' %}">Manage Team Members</a></div>
+            <div class="col-md-4"><a class="manage-card" href="{% url 'manage_about_impact' %}">Manage About Impact</a></div>
         </div>
     </div>
 </section>

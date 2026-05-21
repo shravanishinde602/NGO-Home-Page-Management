@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Manage About Story{% endblock %}
+{% block content %}
+<section class="dashboard-section">
+    <div class="container">
+        <a class="text-success" href="{% url 'dashboard' %}">&larr; Back to dashboard</a>
+        <div class="form-card mt-3">
+            <h1 class="h3 fw-bold mb-4">Manage About Story</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                    </div>
+                {% endfor %}
+                <button class="btn btn-success" type="submit">Save About Content</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

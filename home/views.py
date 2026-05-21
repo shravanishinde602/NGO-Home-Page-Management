@@ -12,6 +12,7 @@ from .forms import (
     VisionMissionForm,
 )
 from .models import Banner, Initiative, NewsEvent, Partner, Statistic, Testimonial, VisionMission
+from aboutus.models import CoreValue, ImpactStatistic, OurStory, Program, TeamMember
 
 
 def main_home(request):
@@ -41,6 +42,11 @@ def admin_dashboard(request):
         "news": NewsEvent.objects.count(),
         "testimonials": Testimonial.objects.count(),
         "partners": Partner.objects.count(),
+        "about_story": OurStory.objects.count(),
+        "about_values": CoreValue.objects.count(),
+        "about_programs": Program.objects.count(),
+        "about_team": TeamMember.objects.count(),
+        "about_impact": ImpactStatistic.objects.count(),
     }
     return render(request, "dashboard.html", {"counts": counts})
 

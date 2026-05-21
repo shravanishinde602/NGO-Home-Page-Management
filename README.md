@@ -18,6 +18,8 @@ This is a beginner-friendly student project. It keeps the code simple while stil
 - Latest news, events, and blog posts section
 - Partners / supporters logo section
 - Footer with contact information, quick links, social links, and copyright
+- Separate About Us page with story, mission, vision, values, programs, team, and impact sections
+- About Us Management module for updating About page content dynamically
 - Django admin login using built-in authentication
 - Custom staff dashboard for managing homepage content
 - Image uploads using Django media configuration
@@ -34,6 +36,11 @@ The admin or staff user can add, edit, update, and delete:
 - News / Events / Blog posts
 - Testimonials
 - Partner logos
+- About page story content
+- About page core values
+- About page programs / focus areas
+- About page team members
+- About page impact statistics
 
 Content can be managed from both:
 
@@ -68,6 +75,13 @@ Project2/
 |   +-- urls.py
 |   +-- wsgi.py
 |   +-- asgi.py
++-- aboutus/
+|   +-- admin.py
+|   +-- forms.py
+|   +-- models.py
+|   +-- urls.py
+|   +-- views.py
+|   +-- migrations/
 +-- home/
 |   +-- admin.py
 |   +-- forms.py
@@ -94,6 +108,12 @@ Project2/
 |   +-- manage_testimonials.html
 |   +-- manage_partners.html
 |   +-- manage_vision_mission.html
+|   +-- about.html
+|   +-- manage_story.html
+|   +-- manage_values.html
+|   +-- manage_programs.html
+|   +-- manage_team.html
+|   +-- manage_about_impact.html
 |   +-- login.html
 |   +-- register.html
 +-- static/
@@ -120,6 +140,16 @@ The `home` app contains the main homepage content models:
 - `Partner`
 
 These models are registered in Django admin and are also used by the custom dashboard pages.
+
+The `aboutus` app contains the About page content models:
+
+- `OurStory`
+- `CoreValue`
+- `Program`
+- `TeamMember`
+- `ImpactStatistic`
+
+These models allow the admin to manage About Us page content dynamically.
 
 ## Local Setup
 
@@ -199,6 +229,11 @@ Dashboard pages include:
 /dashboard/news/
 /dashboard/testimonials/
 /dashboard/partners/
+/dashboard/about/story/
+/dashboard/about/values/
+/dashboard/about/programs/
+/dashboard/about/team/
+/dashboard/about/impact/
 ```
 
 ## Media Uploads

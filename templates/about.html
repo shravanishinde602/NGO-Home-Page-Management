@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}About Us - HopeBridge Foundation{% endblock %}
+{% block content %}
+<section class="about-hero {% if not story.banner_image %}about-hero-fallback{% endif %}" {% if story.banner_image %}style="background-image: linear-gradient(90deg, rgba(18, 47, 38, 0.84), rgba(18, 47, 38, 0.42)), url('{{ story.banner_image.url }}');"{% endif %}>
+    <div class="container">
+        <div class="about-hero-copy col-lg-8">
+            <span class="section-kicker text-white">About Us</span>
+            <h1>{{ story.heading|default:"About HopeBridge Foundation" }}</h1>
+            <p>{{ story.introduction|default:"HopeBridge Foundation is a community-focused NGO working to support education, health, dignity and brighter futures for families who need a helping hand." }}</p>
+            <div class="d-flex flex-wrap gap-3">
+                <a class="btn btn-success btn-lg" href="#story">Our Story</a>
+                <a class="btn btn-light btn-lg" href="#team">Meet the Team</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="story" class="section-pad bg-white">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <span class="section-kicker">Our Journey</span>
+                <h2 class="fw-bold">How our work started</h2>
+                <p class="text-muted fs-5">{{ story.content|default:"Our NGO started with a small group of volunteers who wanted to help children continue their education and support families during difficult times. Over time, this small effort became a community movement with programs for learning, health awareness, food support and volunteer action." }}</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="story-panel">
+                    <h5 class="fw-bold">What makes us different</h5>
+                    <p class="mb-0 text-muted">We focus on simple, transparent and community-based work. Each program is planned around real local needs and supported by volunteers, donors and partners.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-pad soft-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="info-panel h-100">
+                    <span class="section-kicker">Mission</span>
+                    <h2>{{ story.mission_title|default:"Our Mission" }}</h2>
+                    <p>{{ story.mission_description|default:"To connect people, resources and local communities so that children and families can access education, care and basic support with dignity." }}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-panel h-100">
+                    <span class="section-kicker">Vision</span>
+                    <h2>{{ story.vision_title|default:"Our Vision" }}</h2>
+                    <p>{{ story.vision_description|default:"To build a kinder society where every child has the opportunity to learn, grow and feel safe." }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-pad bg-white">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-kicker">Core Values</span>
+            <h2>Values that guide our work</h2>
+        </div>
+        <div class="row g-4">
+            {% for value in values %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="value-card h-100">
+                        <div class="value-icon">{{ value.value|slice:":1" }}</div>
+                        <h5>{{ value.value }}</h5>
+                        <p>{{ value.description|default:"A value we try to follow in every program and community activity." }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-md-3 col-sm-6"><div class="value-card h-100"><div class="value-icon">I</div><h5>Integrity</h5><p>We work honestly and responsibly with the community.</p></div></div>
+                <div class="col-md-3 col-sm-6"><div class="value-card h-100"><div class="value-icon">E</div><h5>Empathy</h5><p>We listen first and understand the needs of people.</p></div></div>
+                <div class="col-md-3 col-sm-6"><div class="value-card h-100"><div class="value-icon">I</div><h5>Inclusivity</h5><p>We welcome people from all backgrounds with respect.</p></div></div>
+                <div class="col-md-3 col-sm-6"><div class="value-card h-100"><div class="value-icon">T</div><h5>Transparency</h5><p>We keep our work clear, simple and accountable.</p></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-pad soft-section">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-kicker">Programs</span>
+            <h2>Focus areas we care about</h2>
+        </div>
+        <div class="row g-4">
+            {% for program in programs %}
+                <div class="col-md-4">
+                    <div class="content-card h-100">
+                        {% if program.image %}<img src="{{ program.image.url }}" alt="{{ program.name }}">{% else %}<div class="image-placeholder">{{ program.name|slice:":1" }}</div>{% endif %}
+                        <div class="p-4"><h5>{{ program.name }}</h5><p>{{ program.description }}</p></div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-md-4"><div class="content-card h-100"><div class="image-placeholder">E</div><div class="p-4"><h5>Education Support</h5><p>Helping children with study material, mentoring and learning support.</p></div></div></div>
+                <div class="col-md-4"><div class="content-card h-100"><div class="image-placeholder">H</div><div class="p-4"><h5>Health Awareness</h5><p>Organizing basic health awareness and care programs in local communities.</p></div></div></div>
+                <div class="col-md-4"><div class="content-card h-100"><div class="image-placeholder">C</div><div class="p-4"><h5>Community Drives</h5><p>Running food, clothing and emergency support drives with volunteers.</p></div></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="team" class="section-pad bg-white">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-kicker">Team</span>
+            <h2>People behind the work</h2>
+        </div>
+        <div class="row g-4">
+            {% for member in team_members %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="team-card h-100">
+                        {% if member.image %}<img src="{{ member.image.url }}" alt="{{ member.name }}">{% else %}<div class="team-avatar">{{ member.name|slice:":1" }}</div>{% endif %}
+                        <h5>{{ member.name }}</h5>
+                        <p>{{ member.role }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-md-3 col-sm-6"><div class="team-card h-100"><div class="team-avatar">A</div><h5>Asha Verma</h5><p>Founder</p></div></div>
+                <div class="col-md-3 col-sm-6"><div class="team-card h-100"><div class="team-avatar">R</div><h5>Rohan Patil</h5><p>Program Coordinator</p></div></div>
+                <div class="col-md-3 col-sm-6"><div class="team-card h-100"><div class="team-avatar">N</div><h5>Neha Shah</h5><p>Volunteer Lead</p></div></div>
+                <div class="col-md-3 col-sm-6"><div class="team-card h-100"><div class="team-avatar">S</div><h5>Samar Khan</h5><p>Outreach Manager</p></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-pad stats-band">
+    <div class="container">
+        <div class="section-heading text-white">
+            <span class="section-kicker text-white">Impact</span>
+            <h2 class="text-white">Achievements that motivate us</h2>
+        </div>
+        <div class="row g-3 text-center">
+            {% for stat in impact_statistics %}
+                <div class="col-6 col-lg-3"><div class="stat-card"><strong>{{ stat.value }}+</strong><span>{{ stat.label }}</span></div></div>
+            {% empty %}
+                <div class="col-6 col-lg-3"><div class="stat-card"><strong>85+</strong><span>Volunteers</span></div></div>
+                <div class="col-6 col-lg-3"><div class="stat-card"><strong>1200+</strong><span>Beneficiaries</span></div></div>
+                <div class="col-6 col-lg-3"><div class="stat-card"><strong>40+</strong><span>Campaigns Completed</span></div></div>
+                <div class="col-6 col-lg-3"><div class="stat-card"><strong>12+</strong><span>Partner Groups</span></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="about-cta">
+    <div class="container text-center">
+        <span class="section-kicker text-white">Join Us</span>
+        <h2>Support our next community program</h2>
+        <p>Small actions can create steady change when people come together.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a class="btn btn-light btn-lg" href="{% url 'main_home' %}#contact">Donate Now</a>
+            <a class="btn btn-success btn-lg" href="{% url 'main_home' %}#contact">Volunteer Today</a>
+            <a class="btn btn-outline-light btn-lg" href="{% url 'main_home' %}#contact">Support Us</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,17 +1,171 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}HopeBridge Foundation - NGO Home{% endblock %}
 {% block content %}
-<section class="hero-section">
+<section id="home" class="hero-wrap">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4200">
+        <div class="carousel-inner">
+            {% for banner in banners %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="hero-slide" {% if banner.image %}style="background-image: linear-gradient(90deg, rgba(18, 47, 38, 0.78), rgba(18, 47, 38, 0.38)), url('{{ banner.image.url }}');"{% endif %}>
+                        <div class="container">
+                            <div class="hero-copy col-lg-7">
+                                <span class="section-kicker text-white">Community first NGO</span>
+                                <h1>{{ banner.title }}</h1>
+                                <p>{{ banner.description }}</p>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <a class="btn btn-success btn-lg" href="#contact">Donate</a>
+                                    <a class="btn btn-light btn-lg" href="#contact">Volunteer</a>
+                                    <a class="btn btn-outline-light btn-lg" href="#contact">Contact</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="carousel-item active">
+                    <div class="hero-slide hero-fallback-1">
+                        <div class="container">
+                            <div class="hero-copy col-lg-7">
+                                <span class="section-kicker text-white">Community first NGO</span>
+                                <h1>Helping children learn, grow and feel supported.</h1>
+                                <p>HopeBridge Foundation works with local volunteers to provide education support, food drives and care programs for families who need it most.</p>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <a class="btn btn-success btn-lg" href="#contact">Donate</a>
+                                    <a class="btn btn-light btn-lg" href="#contact">Volunteer</a>
+                                    <a class="btn btn-outline-light btn-lg" href="#contact">Contact</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="hero-slide hero-fallback-2">
+                        <div class="container">
+                            <div class="hero-copy col-lg-7">
+                                <span class="section-kicker text-white">Small actions, real change</span>
+                                <h1>Together we build safer and kinder communities.</h1>
+                                <p>From school kits to health awareness camps, every program is designed around real needs and local participation.</p>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <a class="btn btn-success btn-lg" href="#contact">Donate</a>
+                                    <a class="btn btn-light btn-lg" href="#contact">Volunteer</a>
+                                    <a class="btn btn-outline-light btn-lg" href="#contact">Contact</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+<section id="mission" class="section-pad bg-white">
     <div class="container">
-        <div class="row justify-content-center text-center">
-            <div class="col-lg-8">
-                <h1 class="display-5 fw-bold">User login and registration</h1>
-                <p class="lead text-muted mt-3">Create an account, sign in securely.</p>
-                <div class="d-flex flex-wrap gap-3 mt-4">
-                    <a class="btn btn-primary btn-lg" href="{% url 'login' %}">Login</a>
-                    <a class="btn btn-outline-dark btn-lg" href="{% url 'register' %}">Register</a>
+        <div class="row g-4 align-items-stretch">
+            <div class="col-md-6">
+                <div class="info-panel h-100">
+                    <span class="section-kicker">Vision</span>
+                    <h2>{{ vision_mission.vision_title|default:"Our Vision" }}</h2>
+                    <p>{{ vision_mission.vision_description|default:"A future where every child and family has access to education, care and opportunities to live with dignity." }}</p>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="info-panel h-100">
+                    <span class="section-kicker">Mission</span>
+                    <h2>{{ vision_mission.mission_title|default:"Our Mission" }}</h2>
+                    <p>{{ vision_mission.mission_description|default:"We connect donors, volunteers and community leaders to run simple, transparent and useful social impact programs." }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-pad stats-band">
+    <div class="container">
+        <div class="row g-3 text-center">
+            {% for stat in statistics %}
+                <div class="col-6 col-lg-3"><div class="stat-card"><strong>{{ stat.value }}+</strong><span>{{ stat.label }}</span></div></div>
+            {% empty %}
+                <div class="col-6 col-lg-3"><div class="stat-card"><strong>1250+</strong><span>Children Helped</span></div></div>
+                <div class="col-6 col-lg-3"><div class="stat-card"><strong>85+</strong><span>Volunteers</span></div></div>
+                <div class="col-6 col-lg-3"><div class="stat-card"><strong>42+</strong><span>Campaigns</span></div></div>
+                <div class="col-6 col-lg-3"><div class="stat-card"><strong>18L+</strong><span>Donations Raised</span></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="programs" class="section-pad bg-white">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-kicker">Initiatives</span>
+            <h2>Programs that create everyday support</h2>
+        </div>
+        <div class="row g-4">
+            {% for initiative in initiatives %}
+                <div class="col-md-4">
+                    <div class="content-card h-100">
+                        {% if initiative.image %}<img src="{{ initiative.image.url }}" alt="{{ initiative.title }}">{% else %}<div class="image-placeholder">{{ initiative.title|slice:":1" }}</div>{% endif %}
+                        <div class="p-4"><h5>{{ initiative.title }}</h5><p>{{ initiative.description }}</p></div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-md-4"><div class="content-card h-100"><div class="image-placeholder">E</div><div class="p-4"><h5>Education Support</h5><p>Weekend classes, school kits and mentoring support for children from nearby communities.</p></div></div></div>
+                <div class="col-md-4"><div class="content-card h-100"><div class="image-placeholder">H</div><div class="p-4"><h5>Health Camps</h5><p>Basic health checkups and awareness sessions with doctors and trained volunteers.</p></div></div></div>
+                <div class="col-md-4"><div class="content-card h-100"><div class="image-placeholder">F</div><div class="p-4"><h5>Food Drives</h5><p>Monthly ration and meal support for families during difficult times.</p></div></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-pad soft-section">
+    <div class="container">
+        <div class="section-heading"><span class="section-kicker">Stories</span><h2>Success stories and testimonials</h2></div>
+        <div class="row g-4">
+            {% for testimonial in testimonials %}
+                <div class="col-md-4"><div class="testimonial-card h-100"><p>"{{ testimonial.message }}"</p><div class="fw-bold">{{ testimonial.name }}</div></div></div>
+            {% empty %}
+                <div class="col-md-4"><div class="testimonial-card h-100"><p>"The after-school classes helped my daughter become confident in her studies."</p><div class="fw-bold">Anita Sharma</div></div></div>
+                <div class="col-md-4"><div class="testimonial-card h-100"><p>"Volunteering here feels meaningful because the team works directly with families."</p><div class="fw-bold">Rahul Mehta</div></div></div>
+                <div class="col-md-4"><div class="testimonial-card h-100"><p>"The health camp made basic medical advice available in our neighborhood."</p><div class="fw-bold">Farida Khan</div></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="news" class="section-pad bg-white">
+    <div class="container">
+        <div class="section-heading"><span class="section-kicker">Latest News</span><h2>News, events and blog updates</h2></div>
+        <div class="row g-4">
+            {% for item in news_events %}
+                <div class="col-md-4"><div class="content-card h-100">{% if item.image %}<img src="{{ item.image.url }}" alt="{{ item.title }}">{% endif %}<div class="p-4"><small class="text-muted">{{ item.created_at|date:"d M Y" }}</small><h5 class="mt-2">{{ item.title }}</h5><p>{{ item.content|truncatewords:22 }}</p></div></div></div>
+            {% empty %}
+                <div class="col-md-4"><div class="content-card h-100"><div class="p-4"><small class="text-muted">Upcoming Event</small><h5 class="mt-2">School Kit Distribution</h5><p>Our next donation drive will provide notebooks, bags and stationery to 200 children.</p></div></div></div>
+                <div class="col-md-4"><div class="content-card h-100"><div class="p-4"><small class="text-muted">News</small><h5 class="mt-2">Volunteer Orientation</h5><p>New volunteers joined our monthly orientation and training session this week.</p></div></div></div>
+                <div class="col-md-4"><div class="content-card h-100"><div class="p-4"><small class="text-muted">Blog</small><h5 class="mt-2">Why Community Support Matters</h5><p>A short note on how small local actions can build long-term confidence.</p></div></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-pad partners-section">
+    <div class="container text-center">
+        <span class="section-kicker">Partners</span>
+        <h2 class="mb-4">Supporters who make our work possible</h2>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            {% for partner in partners %}
+                <div class="partner-logo">{% if partner.logo %}<img src="{{ partner.logo.url }}" alt="{{ partner.name }}">{% else %}{{ partner.name }}{% endif %}</div>
+            {% empty %}
+                <div class="partner-logo">Bright School</div><div class="partner-logo">Care Clinic</div><div class="partner-logo">Green Mart</div><div class="partner-logo">City Club</div>
+            {% endfor %}
         </div>
     </div>
 </section>

@@ -1,20 +1,51 @@
-# Login Registration Django App
+# NGO Home Page Management Website
 
-A simple Django web application for user registration, login, logout, and a protected dashboard page. The project uses Django's built-in authentication system, SQLite, Bootstrap, and the built-in Django admin panel for user management.
+A simple and clean Django-based NGO website with a dynamic homepage and admin content management. The project is built with Python, Django, SQLite, HTML, CSS, Bootstrap 5, and basic JavaScript through Bootstrap components.
+
+This is a beginner-friendly student project. It keeps the code simple while still showing realistic website features such as banners, mission and vision content, impact statistics, programs, news, testimonials, partner logos, image uploads, and admin-only management pages.
 
 ## Features
 
-- Public home page with Login and Register buttons
-- User registration with username, email, and password
-- Secure password storage using Django authentication
-- Username and password login
-- Error and success messages using Django messages
-- Protected dashboard page for logged-in users only
-- Secure logout with redirect to login
-- Django admin panel for managing users
+- Responsive NGO homepage
+- NGO logo and navigation menu
+- Hero banner carousel with smooth Bootstrap slider
+- Tagline and short NGO description
+- Donate, Volunteer, and Contact call-to-action buttons
+- Mission and Vision section
+- Impact statistics cards
+- Initiatives / Programs section
+- Success stories / testimonials section
+- Latest news, events, and blog posts section
+- Partners / supporters logo section
+- Footer with contact information, quick links, social links, and copyright
+- Django admin login using built-in authentication
+- Custom staff dashboard for managing homepage content
+- Image uploads using Django media configuration
 - SQLite database for local development
-- Bootstrap responsive UI
-- Function-based views and simple URL routing
+
+## Admin Can Manage
+
+The admin or staff user can add, edit, update, and delete:
+
+- Banner slider images and text
+- Vision and Mission content
+- Impact statistics
+- Initiatives / Programs
+- News / Events / Blog posts
+- Testimonials
+- Partner logos
+
+Content can be managed from both:
+
+```text
+http://127.0.0.1:8000/admin/
+```
+
+and the custom dashboard:
+
+```text
+http://127.0.0.1:8000/dashboard/
+```
 
 ## Tech Stack
 
@@ -23,83 +54,118 @@ A simple Django web application for user registration, login, logout, and a prot
 - SQLite
 - HTML
 - CSS
-- Bootstrap
-- Gunicorn and WhiteNoise for deployment
+- Bootstrap 5
+- Basic JavaScript through Bootstrap
+- Pillow for image uploads
+- WhiteNoise and Gunicorn for deployment support
 
 ## Project Structure
 
 ```text
-project/
+Project2/
 +-- authproject/
 |   +-- settings.py
 |   +-- urls.py
 |   +-- wsgi.py
+|   +-- asgi.py
++-- home/
+|   +-- admin.py
+|   +-- forms.py
+|   +-- models.py
+|   +-- urls.py
+|   +-- views.py
+|   +-- migrations/
 +-- users/
 |   +-- forms.py
 |   +-- urls.py
 |   +-- views.py
+|   +-- models.py
 +-- templates/
 |   +-- base.html
-|   +-- dashboard.html
-|   +-- login.html
-|   +-- main_home.html
 |   +-- navbar.html
+|   +-- footer.html
+|   +-- main_home.html
+|   +-- dashboard.html
+|   +-- manage_base.html
+|   +-- manage_banner.html
+|   +-- manage_statistics.html
+|   +-- manage_initiatives.html
+|   +-- manage_news.html
+|   +-- manage_testimonials.html
+|   +-- manage_partners.html
+|   +-- manage_vision_mission.html
+|   +-- login.html
 |   +-- register.html
 +-- static/
 |   +-- css/
+|   |   +-- style.css
 |   +-- js/
+|       +-- main.js
++-- media/
++-- db.sqlite3
 +-- manage.py
 +-- requirements.txt
-+-- Procfile
-+-- runtime.txt
 ```
+
+## Database Models
+
+The `home` app contains the main homepage content models:
+
+- `Banner`
+- `VisionMission`
+- `Statistic`
+- `Initiative`
+- `NewsEvent`
+- `Testimonial`
+- `Partner`
+
+These models are registered in Django admin and are also used by the custom dashboard pages.
 
 ## Local Setup
 
-Create and activate a virtual environment:
+Open PowerShell or terminal and go to the project folder:
 
-```bash
-python -m venv .venv
-.venv\Scripts\activate
+```powershell
+cd Project2
+```
+
+Activate the virtual environment:
+
+```powershell
+.\.venv\Scripts\activate
 ```
 
 Install dependencies:
 
-```bash
+```powershell
 pip install -r requirements.txt
 ```
 
 Run migrations:
 
-```bash
+```powershell
 python manage.py migrate
 ```
 
 Create an admin user:
 
-```bash
+```powershell
 python manage.py createsuperuser
 ```
 
 Start the development server:
 
-```bash
+```powershell
 python manage.py runserver
 ```
 
-Open:
+Open the website:
 
 ```text
 http://127.0.0.1:8000/
 ```
 
-## Website Flow
-
-```text
-Home Page -> Register -> Login -> Dashboard -> Logout -> Login
-```
-
-## Admin Panel
+## Admin Login
 
 Open:
 
@@ -107,112 +173,54 @@ Open:
 http://127.0.0.1:8000/admin/
 ```
 
-Login with the superuser account created using:
+Login using the username and password created with:
 
-```bash
+```powershell
 python manage.py createsuperuser
 ```
 
-The admin can view, add, edit, and delete users from Django's built-in Users section.
+Django admin login uses username and password. Email is stored in the account but is not used for login by default.
 
-## Database
+## Custom Dashboard
 
-The app uses SQLite by default.
-
-Local database file:
+After logging in as a staff/admin user, open:
 
 ```text
-db.sqlite3
+http://127.0.0.1:8000/dashboard/
 ```
 
-Registered users are stored in Django's built-in:
+Dashboard pages include:
 
 ```text
-auth_user
+/dashboard/banners/
+/dashboard/vision-mission/
+/dashboard/statistics/
+/dashboard/initiatives/
+/dashboard/news/
+/dashboard/testimonials/
+/dashboard/partners/
 ```
 
-For GitHub, the database file should not be committed. Keep `db.sqlite3` ignored in `.gitignore`.
+## Media Uploads
 
-## GitHub Push
-
-Initialize and push:
-
-```bash
-git init
-git add .
-git commit -m "Initial Django login registration app"
-git branch -M main
-git remote add origin https://github.com/shravanishinde602/login-registration.git
-git push -u origin main
-```
-
-## Render Deployment
-
-Create a new Render Web Service and connect the GitHub repository.
-
-Use these settings:
+Uploaded images are stored inside:
 
 ```text
-Language: Python
-Branch: main
-Root Directory: leave empty
+media/
 ```
 
-Build Command:
+Django media settings are configured in `authproject/settings.py`:
 
-```bash
-pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput
+```python
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 ```
 
-Start Command:
-
-```bash
-gunicorn authproject.wsgi:application
-```
-
-Environment Variables:
-
-```text
-SECRET_KEY=your-long-random-secret-key
-DEBUG=False
-ALLOWED_HOSTS=.onrender.com
-```
-
-You can also set `ALLOWED_HOSTS` to your exact Render domain:
-
-```text
-your-app-name.onrender.com
-```
-
-Do not include `https://` or a trailing slash in `ALLOWED_HOSTS`.
-
-## Common Render Issue: Bad Request 400
-
-If the deployed site shows `Bad Request (400)`, check `ALLOWED_HOSTS`.
-
-Correct examples:
-
-```text
-.onrender.com
-your-app-name.onrender.com
-```
-
-Wrong examples:
-
-```text
-https://your-app-name.onrender.com
-https://your-app-name.onrender.com/
-```
-
-After changing environment variables, redeploy from Render:
-
-```text
-Manual Deploy -> Deploy latest commit
-```
+During local development, media files are served from `authproject/urls.py` when `DEBUG=True`.
 
 ## Useful Commands
 
-```bash
+```powershell
 python manage.py check
 python manage.py makemigrations
 python manage.py migrate
@@ -221,8 +229,17 @@ python manage.py runserver
 python manage.py collectstatic --noinput
 ```
 
+If the normal `python` command uses the wrong Python installation, use the virtual environment directly:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py runserver
+```
+
 ## Notes
 
-- This project uses Django's built-in `User` model. No custom user model is required.
-- SQLite is fine for local development and demos.
-- For a production app with permanent data on Render, PostgreSQL is recommended.
+- This project uses Django's built-in authentication system.
+- Only staff/admin users should access the custom dashboard.
+- SQLite is used for local development and student project demos.
+- Pillow is required because the project uses Django `ImageField` for uploads.
+- Bootstrap 5 is used for responsive layout and the homepage carousel.
+- The design is intentionally simple, clean, and beginner-friendly.

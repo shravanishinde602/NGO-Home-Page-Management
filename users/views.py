@@ -27,13 +27,22 @@ def register_view(request):
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect("dashboard")
+        if request.user.is_staff:
+            return redirect("dashboard")
+        logout(request)
+        messages.info(request, "Please log in with an admin or staff account.")
+        return redirect("login")
 
     form = LoginForm(request, data=request.POST or None)
     if request.method == "POST" and form.is_valid():
-        login(request, form.get_user())
-        messages.success(request, "Welcome back.")
-        return redirect("dashboard")
+        user = form.get_user()
+        login(request, user)
+        if user.is_staff:
+            messages.success(request, "Welcome back.")
+            return redirect("dashboard")
+        logout(request)
+        messages.error(request, "Only admin or staff users can access the dashboard.")
+        return redirect("login")
 
     return render(request, "login.html", {"form": form})
 

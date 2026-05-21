@@ -1,0 +1,7 @@
+{% extends "manage_base.html" %}
+{% block table %}
+<h5 class="fw-bold mb-3">Initiatives / Programs</h5>
+{% for item in items %}
+<div class="admin-list-item"><div><strong>{{ item.title }}</strong><div class="text-muted small">Order {{ item.order }} | {% if item.status %}Active{% else %}Hidden{% endif %}</div></div><div><a class="btn btn-sm btn-outline-success" href="?edit={{ item.id }}">Edit</a><form method="post" class="d-inline">{% csrf_token %}<input type="hidden" name="delete_id" value="{{ item.id }}"><button class="btn btn-sm btn-outline-danger">Delete</button></form></div></div>
+{% empty %}<p class="text-muted">No initiatives added yet.</p>{% endfor %}
+{% endblock %}

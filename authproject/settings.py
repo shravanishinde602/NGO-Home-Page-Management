@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "home",
     "users",
 ]
 
@@ -104,7 +105,7 @@ EMAIL_BACKEND = os.environ.get(
 )
 DEFAULT_FROM_EMAIL = os.environ.get(
     "DEFAULT_FROM_EMAIL",
-    "Login System <noreply@example.com>",
+    "HopeBridge Foundation <noreply@example.com>",
 )
 
 if not DEBUG:

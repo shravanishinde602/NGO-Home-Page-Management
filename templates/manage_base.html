@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<section class="dashboard-section">
+    <div class="container">
+        <a class="text-success" href="{% url 'dashboard' %}">&larr; Back to dashboard</a>
+        <h1 class="h3 fw-bold mt-2 mb-4">{{ page_title }}</h1>
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <div class="form-card">
+                    <h5 class="fw-bold mb-3">{% if editing %}Edit item{% else %}Add new item{% endif %}</h5>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if editing %}<input type="hidden" name="instance_id" value="{{ editing.id }}">{% endif %}
+                        {% for field in form %}
+                            <div class="mb-3 {% if field.field.widget.input_type == 'checkbox' %}form-check{% endif %}">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% for error in field.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                            </div>
+                        {% endfor %}
+                        <button class="btn btn-success" type="submit">Save</button>
+                        {% if editing %}<a class="btn btn-outline-secondary" href="{{ request.path }}">Cancel</a>{% endif %}
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="table-card">
+                    {% block table %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

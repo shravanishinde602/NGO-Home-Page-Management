@@ -20,6 +20,8 @@ This is a beginner-friendly student project. It keeps the code simple while stil
 - Footer with contact information, quick links, social links, and copyright
 - Separate About Us page with story, mission, vision, values, programs, team, and impact sections
 - About Us Management module for updating About page content dynamically
+- Our Projects page with filterable project cards and project detail pages
+- Our Projects Management module for projects and project gallery images
 - Django admin login using built-in authentication
 - Custom staff dashboard for managing homepage content
 - Image uploads using Django media configuration
@@ -41,6 +43,8 @@ The admin or staff user can add, edit, update, and delete:
 - About page programs / focus areas
 - About page team members
 - About page impact statistics
+- Project records with status, category, dates, location and impact details
+- Project gallery/media images
 
 Content can be managed from both:
 
@@ -82,6 +86,13 @@ Project2/
 |   +-- urls.py
 |   +-- views.py
 |   +-- migrations/
++-- projects/
+|   +-- admin.py
+|   +-- forms.py
+|   +-- models.py
+|   +-- urls.py
+|   +-- views.py
+|   +-- migrations/
 +-- home/
 |   +-- admin.py
 |   +-- forms.py
@@ -114,6 +125,10 @@ Project2/
 |   +-- manage_programs.html
 |   +-- manage_team.html
 |   +-- manage_about_impact.html
+|   +-- projects.html
+|   +-- project_detail.html
+|   +-- manage_projects.html
+|   +-- manage_project_images.html
 |   +-- login.html
 |   +-- register.html
 +-- static/
@@ -150,6 +165,13 @@ The `aboutus` app contains the About page content models:
 - `ImpactStatistic`
 
 These models allow the admin to manage About Us page content dynamically.
+
+The `projects` app contains the Our Projects module models:
+
+- `Project`
+- `ProjectImage`
+
+These models allow the admin to manage project cards, project detail pages, project impact information and gallery images.
 
 ## Local Setup
 
@@ -234,6 +256,8 @@ Dashboard pages include:
 /dashboard/about/programs/
 /dashboard/about/team/
 /dashboard/about/impact/
+/dashboard/projects/
+/dashboard/project-images/
 ```
 
 ## Media Uploads

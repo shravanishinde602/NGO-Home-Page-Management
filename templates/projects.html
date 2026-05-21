@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Our Projects - HopeBridge Foundation{% endblock %}
+{% block content %}
+<section class="projects-hero">
+    <div class="container">
+        <div class="projects-hero-copy col-lg-8">
+            <span class="section-kicker text-white">Our Projects</span>
+            <h1>Projects that turn support into action.</h1>
+            <p>Explore ongoing, completed and upcoming NGO projects across education, health, environment and community support.</p>
+            <div class="d-flex flex-wrap gap-3">
+                <a class="btn btn-success btn-lg" href="#project-list">View Projects</a>
+                <a class="btn btn-outline-light btn-lg" href="{% url 'main_home' %}#contact">Support a Project</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-pad stats-band">
+    <div class="container">
+        <div class="row g-3 text-center">
+            <div class="col-6 col-lg-3"><div class="stat-card"><strong>{{ featured_stats.people_helped }}+</strong><span>People Helped</span></div></div>
+            <div class="col-6 col-lg-3"><div class="stat-card"><strong>{{ featured_stats.volunteers }}+</strong><span>Volunteers Engaged</span></div></div>
+            <div class="col-6 col-lg-3"><div class="stat-card"><strong>{{ featured_stats.funds }}+</strong><span>Funds Raised</span></div></div>
+            <div class="col-6 col-lg-3"><div class="stat-card"><strong>{{ projects|length }}+</strong><span>Visible Projects</span></div></div>
+        </div>
+    </div>
+</section>
+
+<section id="project-list" class="section-pad bg-white">
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+            <div class="section-heading mb-0">
+                <span class="section-kicker">Browse Projects</span>
+                <h2>Find projects by status or focus area</h2>
+            </div>
+            <a class="btn btn-outline-success" href="{% url 'projects_page' %}">Clear Filters</a>
+        </div>
+
+        <form method="get" class="filter-bar mb-4">
+            <div>
+                <label class="form-label small text-muted">Project Status</label>
+                <select class="form-select" name="status" onchange="this.form.submit()">
+                    <option value="all" {% if selected_status == 'all' %}selected{% endif %}>All Status</option>
+                    {% for value,label in status_choices %}<option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+                </select>
+            </div>
+            <div>
+                <label class="form-label small text-muted">Category</label>
+                <select class="form-select" name="category" onchange="this.form.submit()">
+                    <option value="all" {% if selected_category == 'all' %}selected{% endif %}>All Categories</option>
+                    {% for value,label in category_choices %}<option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+                </select>
+            </div>
+            <button class="btn btn-success align-self-end" type="submit">Filter</button>
+        </form>
+
+        <div class="row g-4">
+            {% for project in projects %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card h-100">
+                        {% if project.image %}<img src="{{ project.image.url }}" alt="{{ project.title }}">{% else %}<div class="image-placeholder">{{ project.title|slice:":1" }}</div>{% endif %}
+                        <div class="p-4">
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <span class="badge project-badge status-{{ project.status }}">{{ project.get_status_display }}</span>
+                                <span class="badge text-bg-light border">{{ project.get_category_display }}</span>
+                            </div>
+                            <h5>{{ project.title }}</h5>
+                            <p>{{ project.short_description|default:project.description|truncatewords:22 }}</p>
+                            <div class="small text-muted mb-3">{{ project.location|default:"Community project" }}</div>
+                            <a class="btn btn-outline-success" href="{{ project.get_absolute_url }}">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-md-4"><div class="project-card h-100"><div class="image-placeholder">E</div><div class="p-4"><span class="badge project-badge status-ongoing mb-3">Ongoing</span><h5>Community Learning Drive</h5><p>Weekend education support and school kit distribution for children.</p><a class="btn btn-outline-success disabled" href="#">Learn More</a></div></div></div>
+                <div class="col-md-4"><div class="project-card h-100"><div class="image-placeholder">H</div><div class="p-4"><span class="badge project-badge status-completed mb-3">Completed</span><h5>Health Awareness Camp</h5><p>Basic health checkups and awareness sessions with volunteers.</p><a class="btn btn-outline-success disabled" href="#">Learn More</a></div></div></div>
+                <div class="col-md-4"><div class="project-card h-100"><div class="image-placeholder">P</div><div class="p-4"><span class="badge project-badge status-upcoming mb-3">Upcoming</span><h5>Green Neighborhood Project</h5><p>Upcoming plantation and cleanliness activity with local students.</p><a class="btn btn-outline-success disabled" href="#">Learn More</a></div></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-pad soft-section">
+    <div class="container">
+        <div class="section-heading"><span class="section-kicker">Impact Stories</span><h2>Small updates that show steady progress</h2></div>
+        <div class="row g-4">
+            <div class="col-md-4"><div class="testimonial-card h-100"><h5>Before and After</h5><p>Our projects focus on simple visible changes, like children receiving school kits or families attending health camps.</p></div></div>
+            <div class="col-md-4"><div class="testimonial-card h-100"><h5>Volunteer Support</h5><p>Every project is supported by local volunteers who help with planning, field visits and follow-up work.</p></div></div>
+            <div class="col-md-4"><div class="testimonial-card h-100"><h5>Community Benefit</h5><p>Projects are selected based on local needs so the support reaches people who can use it immediately.</p></div></div>
+        </div>
+    </div>
+</section>
+{% endblock %}

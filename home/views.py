@@ -13,6 +13,7 @@ from .forms import (
 )
 from .models import Banner, Initiative, NewsEvent, Partner, Statistic, Testimonial, VisionMission
 from aboutus.models import CoreValue, ImpactStatistic, OurStory, Program, TeamMember
+from projects.models import Project, ProjectImage
 
 
 def main_home(request):
@@ -47,6 +48,8 @@ def admin_dashboard(request):
         "about_programs": Program.objects.count(),
         "about_team": TeamMember.objects.count(),
         "about_impact": ImpactStatistic.objects.count(),
+        "projects": Project.objects.count(),
+        "project_images": ProjectImage.objects.count(),
     }
     return render(request, "dashboard.html", {"counts": counts})
 

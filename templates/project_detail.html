@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} - Project Details{% endblock %}
+{% block content %}
+<section class="project-detail-hero {% if not project.image %}project-detail-fallback{% endif %}" {% if project.image %}style="background-image: linear-gradient(90deg, rgba(18, 47, 38, 0.84), rgba(18, 47, 38, 0.42)), url('{{ project.image.url }}');"{% endif %}>
+    <div class="container">
+        <div class="project-detail-copy col-lg-8">
+            <span class="badge project-badge status-{{ project.status }} mb-3">{{ project.get_status_display }}</span>
+            <h1>{{ project.title }}</h1>
+            <p>{{ project.short_description|default:project.description|truncatewords:28 }}</p>
+            <a class="btn btn-success btn-lg" href="{% url 'main_home' %}#contact">Donate / Support</a>
+        </div>
+    </div>
+</section>
+
+<section class="section-pad bg-white">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <span class="section-kicker">Project Details</span>
+                <h2 class="fw-bold">Overview</h2>
+                <p class="text-muted fs-5">{{ project.description }}</p>
+                {% if project.goals %}<h4 class="fw-bold mt-4">Goals and Objectives</h4><p class="text-muted">{{ project.goals }}</p>{% endif %}
+                {% if project.impact_summary %}<h4 class="fw-bold mt-4">Impact / Success Story</h4><p class="text-muted">{{ project.impact_summary }}</p>{% endif %}
+            </div>
+            <div class="col-lg-4">
+                <div class="project-info-card">
+                    <h5 class="fw-bold mb-3">Project Information</h5>
+                    <p><strong>Category:</strong> {{ project.get_category_display }}</p>
+                    <p><strong>Status:</strong> {{ project.get_status_display }}</p>
+                    <p><strong>Location:</strong> {{ project.location|default:"Not specified" }}</p>
+                    <p><strong>Beneficiaries:</strong> {{ project.beneficiaries|default:"Community members" }}</p>
+                    <p><strong>Start Date:</strong> {{ project.start_date|date:"d M Y"|default:"Not specified" }}</p>
+                    <p><strong>End Date:</strong> {{ project.end_date|date:"d M Y"|default:"Not specified" }}</p>
+                    <p class="mb-0"><strong>Team / Partners:</strong> {{ project.team_partners|default:"HopeBridge volunteers" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-pad stats-band">
+    <div class="container">
+        <div class="row g-3 text-center">
+            <div class="col-6 col-lg-4"><div class="stat-card"><strong>{{ project.people_helped }}+</strong><span>People Helped</span></div></div>
+            <div class="col-6 col-lg-4"><div class="stat-card"><strong>{{ project.volunteers_engaged }}+</strong><span>Volunteers Engaged</span></div></div>
+            <div class="col-6 col-lg-4"><div class="stat-card"><strong>{{ project.funds_raised }}+</strong><span>Funds Raised</span></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-pad soft-section">
+    <div class="container">
+        <div class="section-heading"><span class="section-kicker">Gallery</span><h2>Project images and updates</h2></div>
+        <div class="row g-4">
+            {% for image in gallery_images %}
+                <div class="col-md-4"><div class="content-card h-100"><img src="{{ image.image.url }}" alt="{{ image.caption|default:project.title }}"><div class="p-3"><p class="mb-0 text-muted">{{ image.caption|default:"Project gallery image" }}</p></div></div></div>
+            {% empty %}
+                <div class="col-md-4"><div class="content-card h-100"><div class="image-placeholder">{{ project.title|slice:":1" }}</div><div class="p-3"><p class="mb-0 text-muted">Gallery images can be added by admin.</p></div></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% if related_projects %}
+<section class="section-pad bg-white">
+    <div class="container">
+        <div class="section-heading"><span class="section-kicker">Related</span><h2>More projects in {{ project.get_category_display }}</h2></div>
+        <div class="row g-4">
+            {% for item in related_projects %}
+                <div class="col-md-4"><div class="project-card h-100"><div class="p-4"><span class="badge project-badge status-{{ item.status }} mb-3">{{ item.get_status_display }}</span><h5>{{ item.title }}</h5><p>{{ item.short_description|default:item.description|truncatewords:18 }}</p><a class="btn btn-outline-success" href="{{ item.get_absolute_url }}">Learn More</a></div></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -18,6 +18,8 @@
             <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.about_programs }}</strong><span>About Programs</span></div></div>
             <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.about_team }}</strong><span>Team</span></div></div>
             <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.about_impact }}</strong><span>About Impact</span></div></div>
+            <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.projects }}</strong><span>Projects</span></div></div>
+            <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.project_images }}</strong><span>Project Images</span></div></div>
         </div>
         <div class="row g-4">
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_banner' %}">Manage Banners</a></div>
@@ -39,6 +41,15 @@
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_programs' %}">Manage About Programs</a></div>
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_team' %}">Manage Team Members</a></div>
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_about_impact' %}">Manage About Impact</a></div>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mt-5 mb-3">
+            <div><span class="section-kicker">Our Projects</span><h2 class="h4 fw-bold mb-0">Project Management</h2></div>
+            <a class="btn btn-outline-success" href="{% url 'projects_page' %}">View Projects Page</a>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4"><a class="manage-card" href="{% url 'manage_projects' %}">Manage Projects</a></div>
+            <div class="col-md-4"><a class="manage-card" href="{% url 'manage_project_images' %}">Manage Project Images</a></div>
         </div>
     </div>
 </section>

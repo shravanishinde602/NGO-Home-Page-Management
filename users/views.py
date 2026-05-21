@@ -3,6 +3,11 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
+from aboutus.models import CoreValue, ImpactStatistic, Program, TeamMember
+from home.models import Banner, Initiative, NewsEvent, Partner, Statistic, Testimonial
+from media_management.models import ImageGallery, MediaCoverage, PressRelease, Video
+from projects.models import Project, ProjectImage
+
 from .forms import LoginForm, RegistrationForm
 
 
@@ -49,7 +54,25 @@ def login_view(request):
 
 @login_required
 def dashboard(request):
-    return render(request, "dashboard.html")
+    counts = {
+        "banners": Banner.objects.count(),
+        "statistics": Statistic.objects.count(),
+        "initiatives": Initiative.objects.count(),
+        "news": NewsEvent.objects.count(),
+        "testimonials": Testimonial.objects.count(),
+        "partners": Partner.objects.count(),
+        "about_values": CoreValue.objects.count(),
+        "about_programs": Program.objects.count(),
+        "about_team": TeamMember.objects.count(),
+        "about_impact": ImpactStatistic.objects.count(),
+        "projects": Project.objects.count(),
+        "project_images": ProjectImage.objects.count(),
+        "press_releases": PressRelease.objects.count(),
+        "media_coverages": MediaCoverage.objects.count(),
+        "gallery_images": ImageGallery.objects.count(),
+        "videos": Video.objects.count(),
+    }
+    return render(request, "dashboard.html", {"counts": counts})
 
 
 @login_required

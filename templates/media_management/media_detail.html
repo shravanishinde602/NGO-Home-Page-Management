@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ press_release.title }}{% endblock %}
+{% block content %}
+<section class="media-section bg-white">
+    <div class="container">
+        <div class="mx-auto media-detail">
+            <a class="btn btn-outline-secondary btn-sm mb-4" href="{% url 'media_page' %}">Back to Media</a>
+            <p class="small text-muted mb-2">{{ press_release.release_date|date:"d M Y" }}</p>
+            <h1 class="h2 fw-bold">{{ press_release.title }}</h1>
+            <p class="lead text-muted mt-3">{{ press_release.description|linebreaksbr }}</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

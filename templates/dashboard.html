@@ -20,6 +20,10 @@
             <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.about_impact }}</strong><span>About Impact</span></div></div>
             <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.projects }}</strong><span>Projects</span></div></div>
             <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.project_images }}</strong><span>Project Images</span></div></div>
+            <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.press_releases }}</strong><span>Press Releases</span></div></div>
+            <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.media_coverages }}</strong><span>Media Coverage</span></div></div>
+            <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.gallery_images }}</strong><span>Gallery Images</span></div></div>
+            <div class="col-6 col-lg-2"><div class="mini-stat"><strong>{{ counts.videos }}</strong><span>Videos</span></div></div>
         </div>
         <div class="row g-4">
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_banner' %}">Manage Banners</a></div>
@@ -50,6 +54,17 @@
         <div class="row g-4">
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_projects' %}">Manage Projects</a></div>
             <div class="col-md-4"><a class="manage-card" href="{% url 'manage_project_images' %}">Manage Project Images</a></div>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mt-5 mb-3">
+            <div><span class="section-kicker">Media</span><h2 class="h4 fw-bold mb-0">Media Management</h2></div>
+            <a class="btn btn-outline-success" href="{% url 'media_page' %}">View Media Page</a>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4"><a class="manage-card" href="{% url 'manage_press_releases' %}">Manage Press Releases</a></div>
+            <div class="col-md-4"><a class="manage-card" href="/admin/media_management/mediacoverage/">Manage Media Coverage</a></div>
+            <div class="col-md-4"><a class="manage-card" href="{% url 'manage_gallery' %}">Manage Gallery</a></div>
+            <div class="col-md-4"><a class="manage-card" href="{% url 'manage_videos' %}">Manage Videos</a></div>
         </div>
     </div>
 </section>

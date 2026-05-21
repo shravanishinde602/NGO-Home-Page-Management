@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}Media{% endblock %}
+{% block content %}
+<section class="media-hero">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+                <span class="badge text-bg-primary mb-3">Media Center</span>
+                <h1 class="display-5 fw-bold">Stories, updates and coverage from our NGO work</h1>
+                <p class="lead text-muted mt-3">Explore press releases, featured news, campaign photos and videos from our community programs.</p>
+            </div>
+            <div class="col-lg-5">
+                <div class="media-contact-box">
+                    <h2 class="h5 fw-bold">Media Contact</h2>
+                    <p class="mb-1"><strong>Email:</strong> media@hopecare.org</p>
+                    <p class="mb-1"><strong>Phone:</strong> +91 98765 43210</p>
+                    <p class="mb-2"><strong>Office:</strong> Pune, Maharashtra, India</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a class="btn btn-outline-primary btn-sm" href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+                        <a class="btn btn-outline-primary btn-sm" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+                        <a class="btn btn-outline-primary btn-sm" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="media-section bg-white">
+    <div class="container">
+        <div class="section-heading">
+            <h2 class="h3 fw-bold">Press Releases</h2>
+            <p class="text-muted">Official announcements and updates from the organization.</p>
+        </div>
+        <div class="row g-4">
+            {% for release in press_releases %}
+                <div class="col-md-6 col-lg-4">
+                    <article class="media-card h-100">
+                        <p class="small text-muted mb-2">{{ release.release_date|date:"d M Y" }}</p>
+                        <h3 class="h5 fw-bold">{{ release.title }}</h3>
+                        <p class="text-muted">{{ release.description|truncatewords:24 }}</p>
+                        <a class="btn btn-sm btn-primary" href="{% url 'media_detail' release.pk %}">Read More</a>
+                    </article>
+                </div>
+            {% empty %}
+                <p class="text-muted">No press releases added yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="media-section">
+    <div class="container">
+        <div class="section-heading">
+            <h2 class="h3 fw-bold">Media Coverage</h2>
+            <p class="text-muted">News articles, media mentions and featured stories.</p>
+        </div>
+        <div class="row g-3">
+            {% for item in media_coverages %}
+                <div class="col-md-6">
+                    <article class="coverage-item">
+                        <h3 class="h5 fw-bold">{{ item.title }}</h3>
+                        {% if item.description %}
+                            <p class="text-muted mb-2">{{ item.description }}</p>
+                        {% endif %}
+                        <a href="{{ item.url }}" target="_blank" rel="noopener">Open article</a>
+                    </article>
+                </div>
+            {% empty %}
+                <p class="text-muted">No media coverage links added yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="media-section bg-white">
+    <div class="container">
+        <div class="section-heading">
+            <h2 class="h3 fw-bold">Image Gallery</h2>
+            <p class="text-muted">Photos from events, campaigns and awareness programs.</p>
+        </div>
+        <div class="row g-4">
+            {% for photo in gallery_images %}
+                <div class="col-sm-6 col-lg-3">
+                    <figure class="gallery-card">
+                        <img src="{{ photo.image.url }}" alt="{{ photo.description|default:'NGO gallery image' }}">
+                        {% if photo.description %}
+                            <figcaption>{{ photo.description }}</figcaption>
+                        {% endif %}
+                    </figure>
+                </div>
+            {% empty %}
+                <p class="text-muted">No gallery images uploaded yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="media-section">
+    <div class="container">
+        <div class="section-heading">
+            <h2 class="h3 fw-bold">Videos</h2>
+            <p class="text-muted">Campaign videos, interviews, awareness clips and event highlights.</p>
+        </div>
+        <div class="row g-4">
+            {% for video in videos %}
+                <div class="col-md-6">
+                    <div class="video-card">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="{{ video.embed_url }}" title="{{ video.description|default:'NGO video' }}" allowfullscreen></iframe>
+                        </div>
+                        {% if video.description %}
+                            <p class="fw-semibold mt-3 mb-0">{{ video.description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-muted">No videos added yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

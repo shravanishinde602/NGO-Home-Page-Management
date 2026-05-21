@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Manage Press Releases{% endblock %}
+{% block content %}
+<section class="dashboard-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <div class="dashboard-card">
+                    <h1 class="h4 fw-bold">Add Press Release</h1>
+                    <form method="post" class="mt-3">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button class="btn btn-primary" type="submit">Save Press Release</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="dashboard-card">
+                    <h2 class="h4 fw-bold">Press Releases</h2>
+                    <div class="list-group mt-3">
+                        {% for release in press_releases %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between gap-3">
+                                    <div>
+                                        <h3 class="h6 fw-bold mb-1">{{ release.title }}</h3>
+                                        <p class="small text-muted mb-0">{{ release.release_date|date:"d M Y" }}</p>
+                                    </div>
+                                    <form method="post" action="{% url 'delete_press_release' release.pk %}">
+                                        {% csrf_token %}
+                                        <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p class="text-muted mb-0">No press releases yet.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

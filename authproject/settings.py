@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "projects",
     "home",
     "users",
+    "media_management",
 ]
 
 MIDDLEWARE = [
